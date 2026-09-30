@@ -1,0 +1,981 @@
+<title>Макет EcoGreen+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;700&display=swap">
+<style>
+/* Layout: soil-profile bands. Pale sage page, a light band for instructions, dark humus bands for wholesale and footer. */
+:root{
+  --bg:#F1F3EC; --surface:#FFFFFF; --surface-2:#E5E9DE; --ink:#241C16; --muted:#5B6057; --line:#D2D7C9;
+  --leaf:#2E7443; --leaf-hover:#245C35; --on-leaf:#FFFFFF; --sprout:#B7D45C;
+  --soil:#2A211B; --on-soil:#EEE9E0; --on-soil-muted:#B9AF9F; --soil-line:#43372D;
+  --kraft:#CFAE80; --kraft-dark:#AD8958; --label:#FBFAF6; --label-ink:#2A211B; --pack-green:#347E4B;
+  --liquid:#3B2A1E; --worm:#C8766A; --sack:#ECE8DD; --root:#EADCC3; --on-illus:#F4ECDD;
+  --l1:#3B2A1F; --l2:#6A4C35; --l3:#86664A; --sky:#DCE6D2;
+  --ok:#2A6B3E; --ok-bg:#DDEDD9; --warn:#8A5810; --warn-bg:#F5E7CB; --no:#9C3A30; --no-bg:#F5DEDA;
+  --tg:#2AABEE; --on-tg:#FFFFFF; --tg-bg:#D6E3EC; --tg-bubble:#FFFFFF;
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#14120F; --surface:#1C1915; --surface-2:#25211C; --ink:#ECE7DE; --muted:#A39C90; --line:#38312A;
+  --leaf:#6DBE80; --leaf-hover:#88CD99; --on-leaf:#0E1A11; --sprout:#C6DF72;
+  --soil:#0C0A08; --on-soil:#ECE7DE; --on-soil-muted:#A39C90; --soil-line:#2E2822;
+  --kraft:#BF9D6F; --kraft-dark:#9C7B4F; --label:#F1EDE4; --label-ink:#2A211B; --pack-green:#3F8F58;
+  --liquid:#2E2118; --worm:#D08C80; --sack:#DAD5C9; --root:#E2D3B8; --on-illus:#F4ECDD;
+  --l1:#3B2A1F; --l2:#634732; --l3:#806146; --sky:#1D271F;
+  --ok:#83CF95; --ok-bg:#1B2C1F; --warn:#E6B25C; --warn-bg:#33281A; --no:#EA9086; --no-bg:#3A201D;
+  --tg:#2AABEE; --on-tg:#FFFFFF; --tg-bg:#0F1820; --tg-bubble:#1F2B35;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#14120F; --surface:#1C1915; --surface-2:#25211C; --ink:#ECE7DE; --muted:#A39C90; --line:#38312A;
+  --leaf:#6DBE80; --leaf-hover:#88CD99; --on-leaf:#0E1A11; --sprout:#C6DF72;
+  --soil:#0C0A08; --on-soil:#ECE7DE; --on-soil-muted:#A39C90; --soil-line:#2E2822;
+  --kraft:#BF9D6F; --kraft-dark:#9C7B4F; --label:#F1EDE4; --label-ink:#2A211B; --pack-green:#3F8F58;
+  --liquid:#2E2118; --worm:#D08C80; --sack:#DAD5C9; --root:#E2D3B8; --on-illus:#F4ECDD;
+  --l1:#3B2A1F; --l2:#634732; --l3:#806146; --sky:#1D271F;
+  --ok:#83CF95; --ok-bg:#1B2C1F; --warn:#E6B25C; --warn-bg:#33281A; --no:#EA9086; --no-bg:#3A201D;
+  --tg:#2AABEE; --on-tg:#FFFFFF; --tg-bg:#0F1820; --tg-bubble:#1F2B35;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img,svg{max-width:100%}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.15;text-wrap:balance;margin:0;letter-spacing:-0.01em}
+.h1{font-size:clamp(30px,4.4vw,48px)}
+h2,.h2{font-size:clamp(24px,3vw,34px)}
+h3,.h3{font-size:19px;font-weight:500}
+p{margin:0}
+.muted{color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--leaf)}
+.lead{font-size:18px;color:var(--muted);max-width:56ch}
+.note{font-size:14px;color:var(--muted)}
+.mb{margin-bottom:24px}
+:focus-visible{outline:3px solid var(--sprout);outline-offset:2px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border-radius:999px;border:1.5px solid var(--leaf);background:var(--leaf);color:var(--on-leaf);font:700 15px/1.1 var(--f-body);text-decoration:none;cursor:pointer;transition:background .15s,border-color .15s;text-align:center}
+.btn:hover{background:var(--leaf-hover);border-color:var(--leaf-hover)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{background:transparent;border-color:var(--ink)}
+.band .opt-txt .btn-ghost{color:var(--on-soil);border-color:var(--soil-line)}
+.btn-sm{min-height:38px;padding:0 16px;font-size:14px}
+.btn-block{width:100%}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+/* demo bar + header */
+.demo{background:var(--ink);color:var(--bg);font-size:13px}
+.demo-in{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;justify-content:space-between;padding-block:7px}
+.demo-nav{display:flex;flex-wrap:wrap;gap:4px}
+.demo-nav a{text-decoration:none;padding:3px 10px;border-radius:999px;border:1px solid transparent;font-weight:600}
+.demo-nav a[aria-current="true"]{border-color:currentColor}
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.hdr-in{display:flex;align-items:center;gap:20px;min-height:68px;position:relative}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 19px/1 var(--f-display);white-space:nowrap}
+.logo em{font-style:normal;color:var(--leaf)}
+.logo svg{width:34px;height:34px;flex:none}
+.lg-bg{fill:var(--leaf)} .lg-fg{fill:var(--on-leaf)} .lg-st{fill:none;stroke:var(--on-leaf);stroke-width:2;stroke-linecap:round}
+.nav{display:flex;gap:2px;margin-left:auto}
+.nav a{padding:8px 12px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px}
+.nav a:hover,.nav a[aria-current="true"]{background:var(--surface-2)}
+.hdr-act{display:flex;gap:6px;align-items:center}
+.push{margin-left:auto}
+.icon-btn{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font:600 14px/1 var(--f-body);cursor:pointer}
+.icon-btn svg{width:18px;height:18px;flex:none}
+.badge{position:absolute;top:-7px;right:-7px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--leaf);color:var(--on-leaf);font-size:12px;font-weight:800;display:grid;place-items:center}
+.menu-btn{display:none}
+@media (max-width:940px){
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 16px;margin:0}
+  .nav.open{display:flex}
+  .menu-btn{display:inline-flex}
+  .hdr-act{margin-left:auto}
+}
+@media (max-width:560px){.hide-sm{display:none}.icon-btn{padding:0 11px}.logo{font-size:17px}}
+
+/* hero */
+.hero{padding-block:48px 56px}
+.hero-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center}
+.hero-txt{display:grid;gap:22px;justify-items:start}
+.hero-art{margin:0;display:grid;gap:10px;max-width:440px;justify-self:end;width:100%}
+.hero-art svg{width:100%;height:auto;border-radius:8px;background:var(--sky);display:block}
+.hero-art figcaption{font-size:13px;color:var(--muted)}
+@media (max-width:860px){.hero-in{grid-template-columns:1fr;gap:32px}.hero{padding-block:32px 40px}.hero-art{justify-self:start}}
+.s-l1{fill:var(--l1)} .s-l2{fill:var(--l2)} .s-l3{fill:var(--l3)}
+.s-grain{fill:var(--kraft);opacity:.45} .s-pebble{fill:var(--kraft);opacity:.3}
+.s-stem{fill:none;stroke:var(--pack-green);stroke-width:5;stroke-linecap:round}
+.s-leaf{fill:var(--pack-green)} .s-leaf2{fill:var(--sprout)}
+.s-root{fill:none;stroke:var(--root);stroke-width:2;stroke-linecap:round;opacity:.75}
+.s-lab{fill:var(--on-illus);font:700 13px var(--f-body)} .s-sub{fill:var(--on-illus);opacity:.75;font:500 11px var(--f-body)}
+
+/* facts */
+.facts{border-block:1px solid var(--line)}
+.facts-in{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding-block:22px}
+.facts-in>div{display:grid;gap:2px;align-content:start}
+.facts b{font-family:var(--f-display);font-weight:500;font-size:16px}
+.facts span{font-size:14px;color:var(--muted)}
+@media (max-width:860px){.facts-in{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* sections */
+.sec{padding-block:64px;scroll-margin-top:84px}
+.sec-alt{background:var(--surface-2)}
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 32px;margin-bottom:28px}
+.sec-head>div{display:grid;gap:8px}
+.sec-head>p{max-width:48ch}
+@media (max-width:560px){.sec{padding-block:44px}}
+
+/* products */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.pcard{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;min-width:0}
+.pcard-art{display:block;background:var(--surface-2);aspect-ratio:1/.82}
+.sec-alt .pcard-art{background:var(--bg)}
+.pcard-art svg{width:100%;height:100%;display:block}
+.pcard-body{display:flex;flex-direction:column;gap:10px;padding:16px 18px 18px;flex:1}
+.pcard h3 a{text-decoration:none}
+.pcard h3 a:hover{text-decoration:underline}
+.pcard-buy{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:6px}
+.price{font:800 22px/1 var(--f-body);font-variant-numeric:tabular-nums;white-space:nowrap}
+.price-sm{font-size:16px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{min-height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:600 13px/1 var(--f-body);cursor:pointer}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pill{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.pill-in{background:var(--ok-bg);color:var(--ok)} .pill-order{background:var(--warn-bg);color:var(--warn)}
+.pill-out{background:var(--no-bg);color:var(--no)} .pill-muted{background:var(--surface-2);color:var(--muted)}
+.a-shadow{fill:var(--ink);opacity:.08}
+.a-kraft{fill:var(--kraft)} .a-kraft-d{fill:var(--kraft-dark)}
+.a-label{fill:var(--label)} .a-label-b{fill:var(--label);stroke:var(--kraft-dark);stroke-width:1.5}
+.a-t1{fill:var(--label-ink);font:700 10px var(--f-display)} .a-t2{fill:var(--label-ink);font:800 19px var(--f-body)}
+.a-green{fill:var(--pack-green)} .a-stem{fill:none;stroke:var(--pack-green);stroke-width:2;stroke-linecap:round}
+.a-cap{fill:var(--pack-green)} .a-liquid{fill:var(--liquid)}
+.a-shine{fill:none;stroke:var(--label);stroke-width:4;stroke-linecap:round;opacity:.25}
+.a-soil{fill:var(--l1)} .a-worm{fill:none;stroke:var(--worm);stroke-width:5;stroke-linecap:round}
+.a-tub{fill:var(--label);fill-opacity:.3;stroke:var(--kraft-dark);stroke-width:2}
+.a-sack{fill:var(--sack)} .a-weave{stroke:var(--kraft-dark);stroke-width:1;opacity:.35} .a-strap{fill:none;stroke:var(--kraft-dark);stroke-width:6;stroke-linecap:round}
+
+/* tables */
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+.tbl-wrap table{min-width:600px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:800;background:var(--surface-2);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.nrm{font-weight:700}
+.use-stack{display:grid;gap:16px}
+
+/* wholesale band */
+.band{background:var(--soil);color:var(--on-soil)}
+.band .opt-txt .muted{color:var(--on-soil-muted)}
+.band .opt-txt .eyebrow{color:var(--sprout)}
+.opt-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+.opt-txt{display:grid;gap:18px}
+.ticks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.ticks li{display:flex;gap:10px;align-items:flex-start}
+.ticks svg{width:20px;height:20px;flex:none;color:var(--sprout);margin-top:2px}
+@media (max-width:860px){.opt-in{grid-template-columns:1fr;gap:28px}}
+
+/* forms */
+.form-card{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:24px;display:grid;gap:14px;min-width:0}
+.field{display:grid;gap:6px;min-width:0}
+.field label,.field-label{font-size:14px;font-weight:700}
+.inp{width:100%;min-height:46px;padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:500 16px/1.3 var(--f-body)}
+textarea.inp{min-height:84px;resize:vertical}
+.inp:focus{outline:2px solid var(--leaf);outline-offset:0;border-color:var(--leaf)}
+.inp[readonly]{background:var(--surface-2)}
+.inp[aria-invalid="true"]{border-color:var(--no)}
+.inp-sm{min-height:38px;padding:6px 10px;font-size:15px;width:auto;min-width:110px}
+.err{font-size:13px;font-weight:600;color:var(--no)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.row2{grid-template-columns:1fr}}
+.radios{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.opt-radio{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--line);border-radius:8px;cursor:pointer;background:var(--surface)}
+.opt-radio:has(input:checked){border-color:var(--leaf);box-shadow:inset 0 0 0 1px var(--leaf)}
+.opt-radio input{accent-color:var(--leaf);margin-top:4px;flex:none}
+.opt-radio small{display:block;color:var(--muted);font-size:13px;line-height:1.4;margin-top:2px}
+.check{display:flex;gap:10px;align-items:center;font-weight:600;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--leaf)}
+.ok-box{background:var(--ok-bg);color:var(--ink);border-radius:8px;padding:16px 18px;display:grid;gap:4px}
+
+/* delivery + faq */
+.dp{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.dp h3{margin-bottom:14px}
+.dl{display:grid;gap:0;margin:0;border-top:1px solid var(--line)}
+.dl div{display:grid;gap:2px;padding:14px 0;border-bottom:1px solid var(--line)}
+.dl dt{font-weight:700} .dl dd{margin:0;color:var(--muted)}
+@media (max-width:760px){.dp{grid-template-columns:1fr;gap:32px}}
+.faq{border-top:1px solid var(--line);max-width:860px}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:700;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--f-display);color:var(--leaf);flex:none}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin-top:10px;color:var(--muted);max-width:70ch}
+
+/* footer */
+.foot{background:var(--soil);color:var(--on-soil);padding-block:48px 28px;scroll-margin-top:84px}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px}
+.foot-brand{display:grid;gap:12px;align-content:start}
+.foot-brand p{color:var(--on-soil-muted);font-size:14px;max-width:32ch}
+.foot h4{font:500 13px/1.2 var(--f-display);margin:0 0 12px;color:var(--sprout);letter-spacing:.02em}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px}
+.foot a{text-decoration:none;color:var(--on-soil)}
+.foot a:hover{text-decoration:underline}
+.foot .ph{font-variant-numeric:tabular-nums}
+.foot .soon{font-size:12px;color:var(--on-soil-muted)}
+.foot-bottom{margin-top:36px;padding-top:18px;border-top:1px solid var(--soil-line);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:13px;color:var(--on-soil-muted)}
+.foot-bottom a{color:var(--on-soil-muted)}
+@media (max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.foot-grid{grid-template-columns:1fr}}
+
+/* inner pages */
+.page{padding-block:28px 72px}
+.crumbs{font-size:14px;color:var(--muted);margin-bottom:20px;display:flex;flex-wrap:wrap;gap:6px}
+.crumbs a{text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.pp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+.pp-art{background:var(--surface-2);border-radius:8px;aspect-ratio:1/1;max-width:100%}
+.pp-art svg{width:100%;height:100%;display:block}
+.pp-info{display:grid;gap:18px;justify-items:start}
+.pp-price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pp-price .price{font-size:34px}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.stepper button{width:42px;height:44px;border:0;background:none;color:var(--ink);font-size:20px;cursor:pointer;border-radius:999px}
+.stepper output{min-width:30px;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.stepper-sm button{width:36px;height:36px;font-size:18px}
+.perks{list-style:none;padding:0;margin:0;display:grid;gap:8px;color:var(--muted);font-size:15px}
+.perks li{display:flex;gap:8px;align-items:center}
+.perks svg{width:18px;height:18px;flex:none;color:var(--leaf)}
+.pp-more{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:48px;align-items:start}
+.pp-more section{display:grid;gap:14px;min-width:0}
+.spec{display:grid;margin:0;border-top:1px solid var(--line)}
+.spec div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.spec dt{color:var(--muted)} .spec dd{margin:0;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:860px){.pp{grid-template-columns:1fr;gap:24px}.pp-art{max-width:420px;width:100%}.pp-more{grid-template-columns:1fr;gap:36px;margin-top:40px}}
+.steps{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;gap:12px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:32px minmax(0,1fr);gap:12px;align-items:start}
+.steps li::before{content:counter(s);width:32px;height:32px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;font:500 14px/1 var(--f-display);color:var(--leaf)}
+.steps-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.steps-row li{grid-template-columns:1fr;gap:10px}
+.steps-row li b{font-family:var(--f-display);font-weight:500;font-size:17px}
+.steps-row li span{color:var(--muted)}
+@media (max-width:860px){.steps-row{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps-row{grid-template-columns:1fr}}
+
+/* cart + checkout */
+.cart-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:start}
+.cl{display:grid;grid-template-columns:76px minmax(0,1fr) auto 100px 36px;grid-template-areas:"art info qty sum rm";gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.cl:first-child{border-top:1px solid var(--line)}
+.cl-art{grid-area:art;width:76px;height:76px;background:var(--surface-2);border-radius:6px;display:block}
+.cl-art svg{width:100%;height:100%;display:block}
+.cl-info{grid-area:info;display:grid;gap:4px;justify-items:start;min-width:0}
+.cl-info a{text-decoration:none}
+.cl-qty{grid-area:qty}
+.cl-sum{grid-area:sum;font-weight:800;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rm{grid-area:rm;border:0;background:none;color:var(--muted);cursor:pointer;width:36px;height:36px;border-radius:50%;display:grid;place-items:center}
+.rm:hover{background:var(--surface-2);color:var(--ink)}
+.rm svg{width:18px;height:18px}
+@media (max-width:600px){.cl{grid-template-columns:64px minmax(0,1fr) auto;grid-template-areas:"art info rm" "art qty sum";gap:10px 14px}.cl-art{width:64px;height:64px}.cl-qty{justify-self:start}}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:22px;display:grid;gap:12px;position:sticky;top:calc(88px + env(safe-area-inset-top,0px));min-width:0}
+.sum-row{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.sum-row .num{font-weight:700}
+.sum-total{font-size:20px;font-weight:800;padding-top:12px;border-top:1px solid var(--line)}
+.sum-lines{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:14px}
+.sum-lines li{display:flex;justify-content:space-between;gap:12px}
+@media (max-width:900px){.cart-grid{grid-template-columns:1fr;gap:28px}.summary{position:static}}
+.co-sec{display:grid;gap:14px;padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid var(--line)}
+.co-sec:last-child{border-bottom:0;margin-bottom:0}
+.empty{padding:56px 24px;text-align:center;border:1px dashed var(--line);border-radius:8px;display:grid;gap:14px;justify-items:center}
+.pay{max-width:600px;display:grid;gap:20px}
+.pay-sum{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:18px 0;border-block:1px solid var(--line)}
+.pay-sum .price{font-size:30px}
+.pay-box{border:1px dashed var(--line);border-radius:8px;padding:20px;display:grid;gap:10px;background:var(--surface)}
+.pay-marks{display:flex;flex-wrap:wrap;gap:6px}
+.pay-marks span{padding:4px 10px;border:1px solid var(--line);border-radius:4px;font-size:12px;font-weight:800;color:var(--muted)}
+.done-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start}
+.done-main{display:grid;gap:18px;justify-items:start}
+.done-main>.ocard{justify-self:stretch}
+.done-icon{width:56px;height:56px;border-radius:50%;background:var(--ok-bg);color:var(--ok);display:grid;place-items:center}
+.done-icon svg{width:28px;height:28px}
+@media (max-width:900px){.done-grid{grid-template-columns:1fr;gap:32px}}
+
+/* telegram preview */
+.tg-wrap{display:grid;gap:8px;max-width:420px}
+.tg{background:var(--tg-bg);border-radius:8px;padding:14px;display:grid;gap:12px}
+.tg-head{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--ink)}
+.tg-head small{display:block;color:var(--muted);font-size:12px}
+.tg-ava{width:36px;height:36px;border-radius:50%;background:var(--tg);color:var(--on-tg);display:grid;place-items:center;font:700 12px/1 var(--f-display);flex:none}
+.tg-msg{background:var(--tg-bubble);color:var(--ink);border-radius:12px 12px 12px 4px;padding:10px 12px 22px;white-space:pre-line;font-size:14px;line-height:1.5;position:relative;overflow-wrap:anywhere}
+.tg-time{position:absolute;right:10px;bottom:5px;font-size:11px;color:var(--muted)}
+.tg-cap{font-size:13px;color:var(--muted)}
+.band .tg-cap{color:var(--muted)}
+
+/* cabinet */
+.cab-head{margin-bottom:28px;display:grid;gap:6px}
+.cab{display:grid;grid-template-columns:230px minmax(0,1fr);gap:36px;align-items:start}
+.cab-nav{display:grid;gap:4px}
+.cab-nav button{text-align:left;padding:10px 14px;border-radius:8px;border:0;background:none;color:var(--ink);font:600 15px/1.3 var(--f-body);cursor:pointer}
+.cab-nav button:hover{background:var(--surface-2)}
+.cab-nav button[aria-current="true"]{background:var(--surface-2);font-weight:800}
+.cab-nav .cab-out{color:var(--muted);margin-top:12px}
+.cab-body{display:grid;gap:16px;min-width:0}
+.ocard{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px 20px;display:grid;gap:12px;min-width:0}
+.ocard-head{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
+.ocard-foot{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;font-size:14px}
+.olines{list-style:none;margin:0;padding:0;display:grid}
+.olines li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.olines .olines-total{border-bottom:0;font-weight:800}
+.login{max-width:440px;margin:24px auto 0;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:28px;display:grid;gap:16px}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;background:var(--surface-2);color:var(--muted);font-size:12px;font-weight:800;vertical-align:middle}
+@media (max-width:760px){.cab{grid-template-columns:1fr;gap:20px}.cab-nav{display:flex;flex-wrap:wrap}.cab-nav .cab-out{margin-top:0}}
+
+/* admin */
+.adm-top{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:end;justify-content:space-between;margin-bottom:8px}
+.adm-top>div{display:grid;gap:6px}
+.tg-status{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:14px;font-weight:700}
+.tg-status svg{width:18px;height:18px;color:var(--tg)}
+.tabbar{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:24px 0 20px;overflow-x:auto}
+.tabbar button{padding:12px 16px;border:0;background:none;color:var(--muted);font:700 15px/1 var(--f-body);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.tabbar button[aria-current="true"]{color:var(--ink);border-bottom-color:var(--leaf)}
+.cnt{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--leaf);color:var(--on-leaf);font-size:12px;margin-left:6px}
+.cnt-0{background:var(--surface-2);color:var(--muted)}
+.adm-bar{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-bottom:14px}
+.adm-orders table{min-width:980px}
+.adm-small{font-size:13px;color:var(--muted)}
+.adm-reset{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+td .inp-sm{width:120px}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:8px;font-weight:700;font-size:14px;z-index:50;max-width:calc(100% - 32px);box-shadow:0 8px 24px rgba(0,0,0,.18);text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div id="app"></div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+'use strict';
+var LS='ecogreen-maket-v1';
+var STOCK={in:'В наявності',order:'Під замовлення',out:'Немає в наявності'};
+var STATUS={new:'Нове',confirmed:'Підтверджено',sent:'Відправлено',done:'Доставлено',cancel:'Скасовано'};
+var STATUS_PILL={new:'order',confirmed:'in',sent:'in',done:'muted',cancel:'out'};
+var DLV={np:'Нова Пошта, відділення',npc:'Нова Пошта, кур’єр',ukr:'Укрпошта',self:'Самовивіз'};
+var DLV_NOTE={np:'Відділення або поштомат, 1–3 дні',npc:'Доставка до дверей',ukr:'Дешевше для легких посилок',self:'Безкоштовно, зі складу'};
+var BR_LABEL={np:'Відділення або поштомат',npc:'Адреса доставки',ukr:'Індекс і адреса',self:''};
+var PAY={card:'Карткою онлайн',cod:'Накладений платіж'};
+var PAGES=['home','catalog','product','cart','checkout','pay','done','cabinet','opt','admin'];
+var HOME_SECTIONS=['use','delivery','contacts','faq','optblock'];
+
+var SEED={
+  v:1, nextNo:1047,
+  products:[
+    {id:'dry',cat:'dry',art:'bag',name:'Біогумус сухий',tagline:'Для розсади, городу, саду й кімнатних рослин',
+     desc:'Сипке органічне добриво, яке отримують переробкою органіки черв’яками. Покращує структуру ґрунту, живить рослини поступово й не обпікає коріння.',
+     variants:[{id:'dry-1',label:'1 кг',kg:1,price:45,stock:'in'},{id:'dry-5',label:'5 кг',kg:5,price:190,stock:'in'},{id:'dry-10',label:'10 кг',kg:10,price:350,stock:'in'},{id:'dry-30',label:'30 кг, мішок',short:'30 кг',kg:30,price:890,stock:'in'}]},
+    {id:'liquid',cat:'liquid',art:'bottle',name:'Біогумус рідкий',tagline:'Концентрат для поливу й обприскування',
+     desc:'Концентрована витяжка з біогумусу. Розводиться водою, підходить для кореневого й позакореневого підживлення, замочування насіння й поливу розсади.',
+     variants:[{id:'liq-05',label:'0,5 л',l:0.5,price:95,stock:'in'},{id:'liq-1',label:'1 л',l:1,price:160,stock:'order'}]},
+    {id:'worms',cat:'worms',art:'worms',name:'Живі черв’яки',tagline:'Для власного вермікомпосту',
+     desc:'Активні компостні черв’яки разом із субстратом. Перероблюють рослинні й кухонні відходи на біогумус просто на дачі чи в господарстві.',
+     variants:[{id:'w-500',label:'500 шт',pcs:500,price:380,stock:'in'},{id:'w-1000',label:'1000 шт',pcs:1000,price:690,stock:'order'}]}
+  ],
+  sel:{dry:'dry-5',liquid:'liq-05',worms:'w-500'},
+  cart:[],
+  orders:[
+    {no:1046,date:'29.09.2026 18:40',name:'Андрій П.',phone:'+380 50 000 00 02',dlv:'np',city:'Полтава',branch:'Відділення №7',pay:'cod',paid:false,comment:'',
+     lines:[{vid:'liq-05',name:'Біогумус рідкий',label:'0,5 л',price:95,qty:3},{vid:'dry-5',name:'Біогумус сухий',label:'5 кг',price:190,qty:1}],total:475,status:'sent',mine:false,demo:true},
+    {no:1045,date:'24.09.2026 10:15',name:'Олена К.',phone:'+380 67 000 00 01',dlv:'np',city:'Київ',branch:'Відділення №25',pay:'card',paid:true,comment:'',
+     lines:[{vid:'dry-10',name:'Біогумус сухий',label:'10 кг',price:350,qty:2}],total:700,status:'done',mine:true,demo:true}
+  ],
+  leads:[{date:'28.09.2026 09:05',name:'Фермерське господарство',phone:'+380 97 000 00 03',volume:'5–10 т',region:'Полтавська обл.',comment:'Потрібна доставка до господарства',demo:true}],
+  user:null
+};
+
+var USE={
+  dry:[['Розсада','1 частина на 3–4 частини ґрунту','при посіві й пікіруванні'],
+       ['Картопля','150–200 г у лунку','при посадці'],
+       ['Томати, огірки, перець','200–300 г у лунку','при висадці розсади'],
+       ['Полуниця','100–150 г під кущ','навесні й після збору'],
+       ['Плодові дерева','2–4 кг у пристовбурне коло','навесні або восени'],
+       ['Газон','0,5–1 кг на 1 м²','перед сівбою, для підсипки'],
+       ['Кімнатні рослини','1–2 ст. л. на 1 л ґрунту','при пересадці']],
+  liquid:[['Замочування насіння','5 мл на 1 л води','за 12–24 год до посіву'],
+       ['Полив розсади','10 мл на 1 л води','раз на 7–10 днів'],
+       ['Овочі у відкритому ґрунті','20 мл на 1 л води','раз на 10–14 днів'],
+       ['Обприскування по листу','10 мл на 1 л води','вранці або ввечері'],
+       ['Кімнатні рослини','5–10 мл на 1 л води','раз на 2 тижні']]
+};
+var SPECS={
+  dry:[['pH','6,5–7,5'],['Органічна речовина','від 40 %'],['Вологість','35–45 %'],['Азот (N)','1–2 %'],['Фосфор (P₂O₅)','1–2 %'],['Калій (K₂O)','1–1,5 %']],
+  liquid:[['pH','7–8'],['Основа','витяжка з біогумусу'],['Розведення','5–20 мл на 1 л води'],['Зберігання','+4…+25 °C']],
+  worms:[['У комплекті','черв’яки й субстрат'],['Температура утримання','+15…+25 °C'],['Корм','рослинні й кухонні відходи'],['Відправка','у вентильованій тарі']]
+};
+
+function clone(o){return JSON.parse(JSON.stringify(o));}
+function load(){var s=null;try{s=JSON.parse(localStorage.getItem(LS)||'null');}catch(e){} return (s&&s.v===1)?s:clone(SEED);}
+var S=load();
+function save(){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}}
+
+var UI={page:'home',pid:null,menu:false,cat:'all',useTab:'dry',ppQty:1,draft:null,errors:{},lastNo:null,login:{step:1,phone:'',err:''},cabTab:'orders',admTab:'orders',leadSent:null};
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function money(n){return Math.round(n).toLocaleString('uk-UA')+' грн';}
+function digits(s){return String(s||'').replace(/\D/g,'');}
+function pad(n){return String(n).padStart(2,'0');}
+function nowStr(){var d=new Date();return pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear()+' '+pad(d.getHours())+':'+pad(d.getMinutes());}
+function getP(id){return S.products.find(function(p){return p.id===id;});}
+function findV(vid){for(var i=0;i<S.products.length;i++){var p=S.products[i];var v=p.variants.find(function(x){return x.id===vid;});if(v)return {p:p,v:v};}return null;}
+function selV(p){return p.variants.find(function(v){return v.id===S.sel[p.id];})||p.variants[0];}
+function cartLines(){return S.cart.map(function(l){var f=findV(l.vid);return f?{vid:l.vid,qty:l.qty,p:f.p,v:f.v,sum:f.v.price*l.qty}:null;}).filter(Boolean);}
+function cartCount(){return S.cart.reduce(function(a,l){return a+l.qty;},0);}
+function cartTotal(){return cartLines().reduce(function(a,l){return a+l.sum;},0);}
+function addCart(vid,q){var l=S.cart.find(function(x){return x.vid===vid;});if(l)l.qty=Math.min(99,l.qty+q);else S.cart.push({vid:vid,qty:q});save();}
+function unitPrice(v){if(v.kg)return money(v.price/v.kg)+' за кг';if(v.l)return money(v.price/v.l)+' за літр';if(v.pcs)return money(v.price/v.pcs*100)+' за 100 шт';return '';}
+function pill(kind,text){return '<span class="pill pill-'+kind+'">'+(text||STOCK[kind])+'</span>';}
+function dText(o){return o.dlv==='self'?'Самовивіз':DLV[o.dlv]+': '+o.city+', '+o.branch;}
+
+/* icons */
+function ic(d){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+d+'</svg>';}
+var I={
+  user:ic('<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>'),
+  cart:ic('<path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20.5" r="1.2"/><circle cx="17" cy="20.5" r="1.2"/>'),
+  menu:ic('<path d="M4 7h16M4 12h16M4 17h16"/>'),
+  x:ic('<path d="M6 6l12 12M18 6L6 18"/>'),
+  truck:ic('<path d="M3 6h11v10H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/>'),
+  card:ic('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/>'),
+  check:ic('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
+  insta:ic('<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/>'),
+  tg:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.5 4.3 2.9 11.5c-1.1.4-1.1 1.1-.2 1.4l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.8-1.4-1.5ZM9.3 14.3l8.8-5.6c.4-.3.8-.1.5.2l-7.3 6.6-.3 3.1-1.7-4.3Z"/></svg>'
+};
+var LOGO='<svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" class="lg-bg"/><path class="lg-st" d="M17 26V15"/><path class="lg-fg" d="M17 19C12 19 9 16 9 11C14 11 17 14 17 19Z"/><path class="lg-fg" d="M17 15C17 10 20 7 25 7C25 12 22 15 17 15Z"/></svg>';
+
+/* product art (placeholders until real photos) */
+function sprout(x,y,s){return '<g transform="translate('+x+' '+y+') scale('+s+')"><path class="a-stem" d="M0 12V2"/><path class="a-green" d="M0 8C-7 8-11 3-11-4C-4-4 0 1 0 8Z"/><path class="a-green" d="M0 4C0-3 4-8 11-8C11-1 7 4 0 4Z"/></g>';}
+function artBag(t){
+  var z='M54 46';for(var i=0;i<10;i++){var x0=54+i*9.2;z+=' L'+(x0+4.6).toFixed(1)+' 38 L'+(x0+9.2).toFixed(1)+' 46';}z+=' Z';
+  return '<svg viewBox="0 0 200 200" aria-hidden="true"><ellipse cx="100" cy="184" rx="60" ry="7" class="a-shadow"/><path class="a-kraft" d="M54 46H146L155 176C120 184 80 184 45 176Z"/><path class="a-kraft-d" d="'+z+'"/><rect class="a-kraft-d" x="54" y="46" width="92" height="10"/><rect class="a-label" x="64" y="76" width="72" height="80" rx="5"/>'+sprout(100,96,1)+'<text class="a-t1" x="100" y="124" text-anchor="middle" textLength="58" lengthAdjust="spacingAndGlyphs">БІОГУМУС</text><text class="a-t2" x="100" y="146" text-anchor="middle">'+esc(t)+'</text></svg>';
+}
+function artBottle(t){
+  return '<svg viewBox="0 0 200 200" aria-hidden="true"><ellipse cx="100" cy="186" rx="44" ry="6" class="a-shadow"/><rect class="a-cap" x="86" y="18" width="28" height="20" rx="4"/><path class="a-liquid" d="M90 38H110V54C128 62 138 76 138 96V172C138 178 134 182 128 182H72C66 182 62 178 62 172V96C62 76 72 62 90 54Z"/><path class="a-shine" d="M66 150V100C66 88 74 76 86 70"/><rect class="a-label" x="70" y="104" width="60" height="62" rx="5"/>'+sprout(100,120,.8)+'<text class="a-t1" x="100" y="143" text-anchor="middle" textLength="50" lengthAdjust="spacingAndGlyphs">БІОГУМУС</text><text class="a-t2" x="100" y="160" text-anchor="middle" style="font-size:15px">'+esc(t)+'</text></svg>';
+}
+function artWorms(t){
+  return '<svg viewBox="0 0 200 200" aria-hidden="true"><ellipse cx="100" cy="186" rx="66" ry="6" class="a-shadow"/><path class="a-soil" d="M46 100H154L149 172C149 176 146 179 142 179H58C54 179 51 176 51 172Z"/><path class="a-worm" d="M62 114C70 105 80 121 90 112S106 105 114 114"/><path class="a-worm" d="M110 132C119 123 130 140 141 130"/><path class="a-worm" d="M60 138C68 130 78 144 88 136"/><path class="a-tub" d="M42 80H158L150 174C150 179 146 182 141 182H59C54 182 50 179 50 174Z"/><rect class="a-cap" x="36" y="68" width="128" height="16" rx="5"/><rect class="a-label" x="60" y="148" width="80" height="26" rx="5"/><text class="a-t2" x="100" y="167" text-anchor="middle" style="font-size:15px">'+esc(t)+'</text></svg>';
+}
+function artBigbag(t){
+  var w='';[80,104,128,152].forEach(function(y){var dx=(y-58)*0.042;w+='<path class="a-weave" d="M'+(38-dx).toFixed(1)+' '+y+'H'+(162+dx).toFixed(1)+'"/>';});
+  return '<svg viewBox="0 0 200 200" aria-hidden="true"><ellipse cx="100" cy="186" rx="74" ry="7" class="a-shadow"/><path class="a-strap" d="M50 60C50 34 72 34 72 60"/><path class="a-strap" d="M128 60C128 34 150 34 150 60"/><path class="a-sack" d="M38 58H162L167 176C130 185 70 185 33 176Z"/>'+w+'<rect class="a-label-b" x="64" y="84" width="72" height="68" rx="4"/>'+sprout(100,102,1)+'<text class="a-t1" x="100" y="128" text-anchor="middle" textLength="58" lengthAdjust="spacingAndGlyphs">БІОГУМУС</text><text class="a-t2" x="100" y="146" text-anchor="middle">'+esc(t)+'</text></svg>';
+}
+function art(kind,t){return kind==='bottle'?artBottle(t):kind==='worms'?artWorms(t):kind==='bigbag'?artBigbag(t):artBag(t);}
+
+function rng(seed){return function(){seed=(seed*16807)%2147483647;return seed/2147483647;};}
+function soilSvg(){
+  var r=rng(11),g='',pb='';
+  for(var i=0;i<90;i++){g+='<circle class="s-grain" cx="'+(r()*400).toFixed(1)+'" cy="'+(184+r()*48).toFixed(1)+'" r="'+(0.8+r()*1.6).toFixed(1)+'"/>';}
+  for(var j=0;j<16;j++){pb+='<ellipse class="s-pebble" cx="'+(r()*400).toFixed(1)+'" cy="'+(356+r()*76).toFixed(1)+'" rx="'+(4+r()*7).toFixed(1)+'" ry="'+(3+r()*4).toFixed(1)+'"/>';}
+  return '<svg viewBox="0 0 400 440" role="img" aria-label="Схема: шар біогумусу над ґрунтом живить коріння рослини">'+
+    '<path class="s-l1" d="M0 172C60 160 130 176 200 168S330 160 400 170V440H0Z"/>'+
+    '<path class="s-l2" d="M0 240C70 230 140 248 210 238S340 228 400 242V440H0Z"/>'+
+    '<path class="s-l3" d="M0 342C80 334 150 350 220 340S350 332 400 344V440H0Z"/>'+g+pb+
+    '<path class="s-root" d="M200 170C198 200 190 222 176 250C170 262 160 268 148 272"/>'+
+    '<path class="s-root" d="M200 172C204 205 214 226 230 256C238 266 250 270 262 272"/>'+
+    '<path class="s-root" d="M200 175C200 212 201 244 198 288C197 300 194 310 190 318"/>'+
+    '<path class="s-root" d="M190 212C182 218 176 222 168 224"/><path class="s-root" d="M212 226C222 230 230 232 238 232"/>'+
+    '<path class="a-worm" d="M300 204C312 194 324 214 336 204S356 196 366 206"/>'+
+    '<path class="a-worm" d="M276 292C288 282 302 300 316 290S334 284 342 292"/>'+
+    '<path class="s-stem" d="M200 170C198 140 203 110 200 70"/>'+
+    '<path class="s-leaf" d="M200 112C170 112 150 94 146 72C172 72 194 88 200 112Z"/>'+
+    '<path class="s-leaf2" d="M200 94C226 92 248 74 252 50C224 52 204 68 200 94Z"/>'+
+    '<path class="s-leaf" d="M200 72C192 60 194 48 200 38C206 48 208 60 200 72Z"/>'+
+    '<path class="s-stem" style="stroke-width:3" d="M322 166C322 158 323 150 322 142"/>'+
+    '<path class="s-leaf2" d="M322 150C312 150 306 144 305 136C314 136 320 142 322 150Z"/>'+
+    '<path class="s-leaf" d="M322 146C324 138 330 132 339 132C338 140 332 146 322 146Z"/>'+
+    '<text class="s-lab" x="18" y="204">Біогумус · 3–5 см</text><text class="s-sub" x="18" y="221">живить коріння</text>'+
+    '<text class="s-lab" x="18" y="292">Орний шар</text><text class="s-sub" x="18" y="309">корені беруть поживу</text>'+
+    '<text class="s-lab" x="18" y="396">Підґрунтя</text>'+
+  '</svg>';
+}
+
+/* chrome */
+function demoBar(){
+  var cur=UI.page==='cabinet'?'cabinet':UI.page==='admin'?'admin':'site';
+  return '<div class="demo"><div class="wrap demo-in"><span><b>Демо-макет</b> · ціни, тексти й фото поки приклад</span><nav class="demo-nav" aria-label="Режими макета">'+
+    '<a href="#home" data-nav="home" aria-current="'+(cur==='site')+'">Сайт</a><a href="#cabinet" data-nav="cabinet" aria-current="'+(cur==='cabinet')+'">Кабінет клієнта</a><a href="#admin" data-nav="admin" aria-current="'+(cur==='admin')+'">Адмін-панель</a></nav></div></div>';
+}
+function header(){
+  if(UI.page==='admin'){
+    return '<header class="hdr"><div class="wrap hdr-in"><a class="logo" href="#home" data-nav="home">'+LOGO+'<span>EcoGreen<em>+</em></span></a><span class="tag">Адмін</span><div class="hdr-act push"><a class="icon-btn" href="#home" data-nav="home">Відкрити сайт</a></div></div></header>';
+  }
+  var n=cartCount();
+  var cur=function(p){return UI.page===p?' aria-current="true"':'';};
+  return '<header class="hdr"><div class="wrap hdr-in">'+
+    '<a class="logo" href="#home" data-nav="home">'+LOGO+'<span>EcoGreen<em>+</em></span></a>'+
+    '<nav class="nav'+(UI.menu?' open':'')+'" aria-label="Основне меню">'+
+      '<a href="#catalog" data-nav="catalog"'+cur('catalog')+'>Каталог</a>'+
+      '<a href="#use" data-nav="home" data-scroll="use">Як застосовувати</a>'+
+      '<a href="#opt" data-nav="opt"'+cur('opt')+'>Оптом</a>'+
+      '<a href="#delivery" data-nav="home" data-scroll="delivery">Доставка й оплата</a>'+
+      '<a href="#contacts" data-nav="home" data-scroll="contacts">Контакти</a>'+
+    '</nav>'+
+    '<div class="hdr-act">'+
+      '<a class="icon-btn" href="#cabinet" data-nav="cabinet" aria-label="Особистий кабінет">'+I.user+'<span class="hide-sm">'+(S.user?'Кабінет':'Увійти')+'</span></a>'+
+      '<a class="icon-btn" href="#cart" data-nav="cart" aria-label="Кошик, товарів: '+n+'">'+I.cart+'<span class="hide-sm">Кошик</span>'+(n?'<b class="badge">'+n+'</b>':'')+'</a>'+
+      '<button class="icon-btn menu-btn" data-act="menu" aria-expanded="'+UI.menu+'" aria-label="Меню">'+I.menu+'</button>'+
+    '</div></div></header>';
+}
+function footer(){
+  return '<footer class="foot" id="contacts"><div class="wrap"><div class="foot-grid">'+
+    '<div class="foot-brand"><a class="logo" href="#home" data-nav="home">'+LOGO+'<span>EcoGreen<em>+</em></span></a><p>Біогумус від виробника. Сухий і рідкий біогумус, живі черв’яки, опт від 1 тонни.</p></div>'+
+    '<div><h4>Контакти</h4><ul><li class="ph">+380 XX XXX XX XX <span class="soon">(номер додамо)</span></li><li>Telegram і Viber за цим номером</li><li><a href="https://www.instagram.com/ecogreen_plus/" target="_blank" rel="noopener">Instagram @ecogreen_plus</a></li></ul></div>'+
+    '<div><h4>Покупцям</h4><ul><li><a href="#catalog" data-nav="catalog">Каталог</a></li><li><a href="#use" data-nav="home" data-scroll="use">Як застосовувати</a></li><li><a href="#delivery" data-nav="home" data-scroll="delivery">Доставка й оплата</a></li><li><a href="#opt" data-nav="opt">Оптом</a></li><li><a href="#cabinet" data-nav="cabinet">Особистий кабінет</a></li></ul></div>'+
+    '<div><h4>Документи</h4><ul><li><a href="#" data-act="soon">Публічна оферта</a></li><li><a href="#" data-act="soon">Політика конфіденційності</a></li><li><a href="#" data-act="soon">Обмін і повернення</a></li></ul></div>'+
+  '</div><div class="foot-bottom"><span>© 2026 EcoGreen+. Біогумус від виробника, Україна.</span><a href="#admin" data-nav="admin">Адмін-панель (демо)</a></div></div></footer>';
+}
+
+/* shared blocks */
+function productCard(p){
+  var v=selV(p);
+  return '<article class="pcard"><a class="pcard-art" href="#p-'+p.id+'" data-nav="p-'+p.id+'" aria-label="'+esc(p.name)+'">'+art(p.art,v.short||v.label)+'</a><div class="pcard-body">'+pill(v.stock)+
+    '<h3><a href="#p-'+p.id+'" data-nav="p-'+p.id+'">'+esc(p.name)+'</a></h3><p class="muted">'+esc(p.tagline)+'</p>'+
+    '<div class="chips" role="group" aria-label="Фасування">'+p.variants.map(function(x){return '<button class="chip" data-act="sel" data-p="'+p.id+'" data-v="'+x.id+'" aria-pressed="'+(x.id===v.id)+'">'+esc(x.label)+'</button>';}).join('')+'</div>'+
+    '<div class="pcard-buy"><span class="price">'+money(v.price)+'</span><button class="btn btn-sm" data-act="add" data-v="'+v.id+'"'+(v.stock==='out'?' disabled':'')+'>В кошик</button></div></div></article>';
+}
+function optCard(){
+  return '<article class="pcard"><a class="pcard-art" href="#opt" data-nav="opt" aria-label="Біогумус оптом">'+art('bigbag','1 т')+'</a><div class="pcard-body">'+pill('muted','За заявкою')+
+    '<h3><a href="#opt" data-nav="opt">Біогумус сухий оптом</a></h3><p class="muted">Біг-беги від 1 т для фермерів, теплиць і магазинів</p>'+
+    '<div class="pcard-buy"><span class="price price-sm">Ціна за запитом</span><a class="btn btn-sm btn-ghost" href="#opt" data-nav="opt">Заявка</a></div></div></article>';
+}
+function grid(list,withOpt){return '<div class="pgrid">'+list.map(productCard).join('')+(withOpt?optCard():'')+'</div>';}
+function useTable(kind){
+  return '<div class="tbl-wrap"><table><thead><tr><th>Культура</th><th>Норма</th><th>Коли</th></tr></thead><tbody>'+
+    USE[kind].map(function(r){return '<tr><td>'+r[0]+'</td><td class="nrm">'+r[1]+'</td><td>'+r[2]+'</td></tr>';}).join('')+'</tbody></table></div>';
+}
+function tgPreview(text,time,cap){
+  return '<div class="tg-wrap"><div class="tg"><div class="tg-head"><span class="tg-ava">E+</span><div><b>EcoGreen+ Замовлення</b><small>бот</small></div></div><div class="tg-msg">'+esc(text)+'<span class="tg-time">'+esc(time)+'</span></div></div><p class="tg-cap">'+cap+'</p></div>';
+}
+function tgOrder(o){
+  var L=['🛒 Нове замовлення №'+o.no,'👤 '+o.name,'📞 '+o.phone,'🚚 '+dText(o),'💳 '+PAY[o.pay]+(o.pay==='card'?(o.paid?', оплачено':', очікує оплати'):''),''];
+  o.lines.forEach(function(l){L.push('• '+l.name+', '+l.label+' × '+l.qty+' = '+money(l.price*l.qty));});
+  L.push('Разом: '+money(o.total));
+  if(o.comment){L.push('','💬 '+o.comment);}
+  return L.join('\n');
+}
+function tgLead(l){
+  var L=['📦 Оптова заявка','👤 '+l.name,'📞 '+l.phone,'⚖️ Обсяг: '+l.volume];
+  if(l.region)L.push('📍 '+l.region);
+  if(l.comment)L.push('💬 '+l.comment);
+  return L.join('\n');
+}
+function orderLines(o){
+  return '<ul class="olines">'+o.lines.map(function(l){return '<li><span>'+esc(l.name)+', '+esc(l.label)+' × '+l.qty+'</span><span class="num">'+money(l.price*l.qty)+'</span></li>';}).join('')+
+    '<li class="olines-total"><span>Разом</span><span class="num">'+money(o.total)+'</span></li></ul>';
+}
+
+/* home */
+function pHome(){
+  return '<section class="hero"><div class="wrap hero-in"><div class="hero-txt">'+
+      '<p class="eyebrow">Виробник біогумусу · Україна</p>'+
+      '<h1 class="h1">Біогумус від виробника для грядки, саду й поля</h1>'+
+      '<p class="lead">Сухий і рідкий біогумус, живі черв’яки. Фасування від 1 кг до 1 тонни. Відправляємо Новою Поштою по всій Україні.</p>'+
+      '<div class="cta-row"><a class="btn" href="#catalog" data-nav="catalog">Перейти до каталогу</a><a class="btn btn-ghost" href="#opt" data-nav="opt">Оптом від 1 т</a></div>'+
+    '</div><figure class="hero-art">'+soilSvg()+'<figcaption>Шар біогумусу 3–5 см живить коріння весь сезон</figcaption></figure></div></section>'+
+    '<section class="facts" aria-label="Коротко про умови"><div class="wrap facts-in">'+
+      '<div><b>1–30 кг</b><span>роздріб: пакети й мішки</span></div>'+
+      '<div><b>від 1 т</b><span>опт для господарств і магазинів</span></div>'+
+      '<div><b>Нова Пошта</b><span>відділення, поштомат, кур’єр</span></div>'+
+      '<div><b>Картка або готівка</b><span>онлайн чи накладеним платежем</span></div>'+
+    '</div></section>'+
+    '<section class="sec"><div class="wrap"><div class="sec-head"><div><p class="eyebrow">Каталог</p><h2>Що можна замовити</h2></div><p class="muted">Ціни за фасування в роздріб. Від 1 тонни діє оптова ціна за заявкою.</p></div>'+grid(S.products,true)+'</div></section>'+
+    useSec()+optBand(false)+deliverySec()+faqSec();
+}
+function useSec(){
+  return '<section class="sec sec-alt" id="use"><div class="wrap"><div class="sec-head"><div><p class="eyebrow">Інструкція</p><h2>Як застосовувати</h2></div><p class="muted">Норми внесення для основних культур. Біогумус не обпікає коріння, тому його вносять одразу при посадці.</p></div>'+
+    '<div class="use-stack"><div class="tabs" role="group" aria-label="Вид біогумусу">'+
+      [['dry','Сухий біогумус'],['liquid','Рідкий біогумус']].map(function(t){return '<button class="chip" data-act="usetab" data-k="'+t[0]+'" aria-pressed="'+(UI.useTab===t[0])+'">'+t[1]+'</button>';}).join('')+
+    '</div>'+useTable(UI.useTab)+'<p class="note">Норми в макеті орієнтовні. Остаточні внесемо за рекомендаціями виробника.</p></div></div></section>';
+}
+function optBand(full){
+  var H=full?'h1':'h2';
+  return '<section class="band sec" id="optblock"><div class="wrap opt-in"><div class="opt-txt">'+
+    '<p class="eyebrow">Фермерам, теплицям і магазинам</p><'+H+' class="h2">Оптом від 1 тонни</'+H+'>'+
+    '<p class="muted">Сухий біогумус у біг-бегах по 1 т. Ціна залежить від обсягу й регіону доставки. Залиште заявку, і менеджер надішле розрахунок у Telegram або Viber.</p>'+
+    '<ul class="ticks">'+['Біг-беги по 1 т, відвантаження зі складу','Доставка по Україні перевізником','Безготівковий розрахунок для ФОП і ТОВ','Постійним клієнтам оптові ціни в особистому кабінеті'].map(function(t){return '<li>'+I.check+'<span>'+t+'</span></li>';}).join('')+'</ul>'+
+    (full?'':'<div><a class="btn btn-ghost" href="#opt" data-nav="opt">Докладніше про опт</a></div>')+
+  '</div>'+(UI.leadSent?leadDone(UI.leadSent):leadForm())+'</div></section>';
+}
+function leadForm(){
+  return '<form class="form-card" id="fLead" novalidate><h3>Заявка на опт</h3>'+
+    '<div class="field"><label for="l-name">Ім’я або назва господарства</label><input class="inp" id="l-name" name="name" autocomplete="organization"></div>'+
+    '<div class="field"><label for="l-phone">Телефон</label><input class="inp" id="l-phone" name="phone" type="tel" inputmode="tel" placeholder="+380" autocomplete="tel"></div>'+
+    '<div class="row2"><div class="field"><label for="l-vol">Обсяг</label><select class="inp" id="l-vol" name="volume"><option>1 т</option><option>2–5 т</option><option>5–10 т</option><option>понад 10 т</option></select></div>'+
+    '<div class="field"><label for="l-reg">Область або місто</label><input class="inp" id="l-reg" name="region"></div></div>'+
+    '<div class="field"><label for="l-com">Коментар <span class="muted">(необов’язково)</span></label><textarea class="inp" id="l-com" name="comment" rows="2"></textarea></div>'+
+    '<p class="err" id="l-err" hidden></p>'+
+    '<button class="btn btn-block" type="submit">Надіслати заявку</button><p class="note">Заявка одразу прийде менеджеру в Telegram.</p></form>';
+}
+function leadDone(l){
+  return '<div class="form-card"><div class="ok-box"><b>Заявку надіслано</b><span>Менеджер зв’яжеться з вами найближчим часом.</span></div>'+
+    tgPreview(tgLead(l),l.date.slice(-5),'Так заявка приходить власнику в Telegram')+
+    '<div><button class="btn btn-ghost" data-act="lead-again">Надіслати ще одну заявку</button></div></div>';
+}
+function deliverySec(){
+  return '<section class="sec" id="delivery"><div class="wrap"><div class="sec-head"><div><p class="eyebrow">Умови</p><h2>Доставка й оплата</h2></div></div><div class="dp">'+
+    '<div><h3>Доставка</h3><dl class="dl">'+
+      '<div><dt>Нова Пошта</dt><dd>У відділення, поштомат або кур’єром. 1–3 дні, вартість за тарифами перевізника.</dd></div>'+
+      '<div><dt>Укрпошта</dt><dd>Дешевше для легких посилок.</dd></div>'+
+      '<div><dt>Самовивіз</dt><dd>Зі складу, адресу надішлемо після підтвердження замовлення.</dd></div>'+
+      '<div><dt>Опт від 1 т</dt><dd>Власним транспортом або перевізником, вартість рахуємо окремо.</dd></div>'+
+    '</dl></div>'+
+    '<div><h3>Оплата</h3><dl class="dl">'+
+      '<div><dt>Карткою онлайн</dt><dd>Visa, Mastercard, Apple Pay, Google Pay. Оплата на захищеній сторінці платіжного сервісу.</dd></div>'+
+      '<div><dt>Накладений платіж</dt><dd>Оплата при отриманні на Новій Пошті, комісію бере перевізник.</dd></div>'+
+      '<div><dt>Безготівковий розрахунок</dt><dd>Рахунок для ФОП і ТОВ, для оптових замовлень.</dd></div>'+
+    '</dl></div></div></div></section>';
+}
+function faqSec(){
+  var q=[['Чим біогумус кращий за гній?','Біогумус не має різкого запаху, не містить насіння бур’янів і не обпікає коріння. Поживні речовини в ньому вже в доступній для рослин формі, тому він діє з перших тижнів.'],
+    ['Чи можна внести забагато?','Біогумус не накопичує нітратів і не пече коріння навіть у великій кількості. Але вносити понад норму немає сенсу: орієнтуйтеся на таблицю вище.'],
+    ['Як зберігати?','Сухий біогумус тримайте в закритому мішку в тіні, щоб він не пересихав. Рідкий зберігайте при +4…+25 °C і не заморожуйте.'],
+    ['Коли відправите замовлення?','Товари в наявності відправляємо протягом 1–2 робочих днів після підтвердження. Позиції під замовлення відправляємо за 3–5 днів.']];
+  return '<section class="sec" id="faq" style="padding-top:0"><div class="wrap"><div class="sec-head"><div><p class="eyebrow">Питання</p><h2>Часті питання</h2></div></div><div class="faq">'+
+    q.map(function(x){return '<details><summary>'+x[0]+'</summary><p>'+x[1]+'</p></details>';}).join('')+'</div></div></section>';
+}
+
+/* catalog + product */
+function pCatalog(){
+  var cats=[['all','Усе'],['dry','Сухий'],['liquid','Рідкий'],['worms','Черв’яки'],['opt','Оптом']];
+  var list=S.products.filter(function(p){return UI.cat==='all'||p.cat===UI.cat;});
+  return '<div class="page"><div class="wrap"><nav class="crumbs" aria-label="Навігація"><a href="#home" data-nav="home">Головна</a><span>/</span><span>Каталог</span></nav>'+
+    '<div class="sec-head"><h1 class="h2">Каталог</h1><div class="tabs" role="group" aria-label="Фільтр">'+cats.map(function(c){return '<button class="chip" data-act="filter" data-k="'+c[0]+'" aria-pressed="'+(UI.cat===c[0])+'">'+c[1]+'</button>';}).join('')+'</div></div>'+
+    grid(list,UI.cat==='all'||UI.cat==='opt')+'</div></div>';
+}
+function pProduct(){
+  var p=getP(UI.pid);if(!p)return pCatalog();
+  var v=selV(p),unit=unitPrice(v);
+  var specs=SPECS[p.id]||[];
+  var useBlock=p.id==='worms'
+    ? '<section><h2 class="h3">Як запустити вермікомпостер</h2><ol class="steps"><li>Підготуйте ящик з отворами для повітря й дренажем.</li><li>Покладіть субстрат шаром 10–15 см і зволожте його.</li><li>Розселіть черв’яків і раз на тиждень додавайте подрібнені рослинні залишки.</li><li>Тримайте вологість як у віджатої губки й температуру +15…+25 °C.</li></ol></section>'
+    : '<section><h2 class="h3">Як застосовувати</h2>'+useTable(p.id)+'</section>';
+  return '<div class="page"><div class="wrap">'+
+    '<nav class="crumbs" aria-label="Навігація"><a href="#home" data-nav="home">Головна</a><span>/</span><a href="#catalog" data-nav="catalog">Каталог</a><span>/</span><span>'+esc(p.name)+'</span></nav>'+
+    '<div class="pp"><div class="pp-art">'+art(p.art,v.short||v.label)+'</div><div class="pp-info">'+pill(v.stock)+
+      '<h1 class="h2">'+esc(p.name)+'</h1><p class="lead">'+esc(p.desc)+'</p>'+
+      '<div class="field"><span class="field-label">Фасування</span><div class="chips" role="group" aria-label="Фасування">'+p.variants.map(function(x){return '<button class="chip" data-act="sel" data-p="'+p.id+'" data-v="'+x.id+'" aria-pressed="'+(x.id===v.id)+'">'+esc(x.label)+'</button>';}).join('')+'</div></div>'+
+      '<div class="pp-price"><span class="price">'+money(v.price)+'</span>'+(unit?'<span class="muted">'+unit+'</span>':'')+'</div>'+
+      '<div class="cta-row"><div class="stepper"><button data-act="pqty" data-d="-1" aria-label="Менше">−</button><output aria-live="polite">'+UI.ppQty+'</output><button data-act="pqty" data-d="1" aria-label="Більше">+</button></div>'+
+      '<button class="btn" data-act="add" data-v="'+v.id+'" data-q="pp"'+(v.stock==='out'?' disabled':'')+'>Додати в кошик</button></div>'+
+      (v.stock==='order'?'<p class="note">Під замовлення: відправимо за 3–5 днів після підтвердження.</p>':'')+
+      (p.id==='dry'?'<p class="note">Потрібно від 1 тонни? <a href="#opt" data-nav="opt">Залиште оптову заявку</a></p>':'')+
+      '<ul class="perks"><li>'+I.truck+'Нова Пошта по всій Україні</li><li>'+I.card+'Картка онлайн або накладений платіж</li></ul>'+
+    '</div></div>'+
+    '<div class="pp-more"><section><h2 class="h3">'+(p.id==='dry'?'Паспорт якості':'Характеристики')+'</h2><dl class="spec">'+specs.map(function(s){return '<div><dt>'+s[0]+'</dt><dd>'+s[1]+'</dd></div>';}).join('')+'</dl>'+
+      (p.id==='dry'?'<p class="note">Показники в макеті приклад. Замінимо даними з протоколу аналізу.</p>':'')+'</section>'+useBlock+'</div>'+
+  '</div></div>';
+}
+
+/* cart + checkout */
+function emptyCart(){
+  return '<div class="page"><div class="wrap"><div class="empty"><h1 class="h2">Кошик порожній</h1><p class="muted">Оберіть біогумус або черв’яків у каталозі.</p><a class="btn" href="#catalog" data-nav="catalog">Перейти до каталогу</a></div></div></div>';
+}
+function sumRows(lines){
+  var t=cartTotal(),c=cartCount();
+  return '<div class="sum-row"><span>Товари, '+c+' шт</span><span class="num">'+money(t)+'</span></div>'+
+    '<div class="sum-row"><span>Доставка</span><span class="muted">за тарифами перевізника</span></div>'+
+    '<div class="sum-row sum-total"><span>Разом</span><span class="num">'+money(t)+'</span></div>';
+}
+function pCart(){
+  var lines=cartLines();if(!lines.length)return emptyCart();
+  return '<div class="page"><div class="wrap"><h1 class="h2 mb">Кошик</h1><div class="cart-grid"><div>'+lines.map(function(l){
+      return '<div class="cl"><a class="cl-art" href="#p-'+l.p.id+'" data-nav="p-'+l.p.id+'" aria-label="'+esc(l.p.name)+'">'+art(l.p.art,l.v.short||l.v.label)+'</a>'+
+        '<div class="cl-info"><a href="#p-'+l.p.id+'" data-nav="p-'+l.p.id+'"><b>'+esc(l.p.name)+'</b></a><span class="muted">'+esc(l.v.label)+' · '+money(l.v.price)+'</span>'+(l.v.stock!=='in'?pill(l.v.stock):'')+'</div>'+
+        '<div class="stepper stepper-sm cl-qty"><button data-act="qty" data-v="'+l.vid+'" data-d="-1" aria-label="Менше">−</button><output>'+l.qty+'</output><button data-act="qty" data-v="'+l.vid+'" data-d="1" aria-label="Більше">+</button></div>'+
+        '<div class="cl-sum">'+money(l.sum)+'</div><button class="rm" data-act="rm" data-v="'+l.vid+'" aria-label="Видалити з кошика">'+I.x+'</button></div>';
+    }).join('')+'</div>'+
+    '<aside class="summary">'+sumRows(lines)+'<a class="btn btn-block" href="#checkout" data-nav="checkout">Оформити замовлення</a><p class="note">Оплата карткою онлайн або при отриманні.</p></aside></div></div></div>';
+}
+function draft(){
+  if(!UI.draft){var u=S.user||{};UI.draft={name:u.name||'',phone:u.phone||'',dlv:'np',city:u.city||'',branch:u.branch||'',pay:'card',comment:'',account:true};}
+  return UI.draft;
+}
+function fld(id,label,name,val,attrs,labelId){
+  var err=UI.errors[name];
+  return '<div class="field"><label for="'+id+'"'+(labelId?' id="'+labelId+'"':'')+'>'+label+'</label><input class="inp" id="'+id+'" name="'+name+'" value="'+esc(val)+'" '+(attrs||'')+(err?' aria-invalid="true"':'')+'>'+(err?'<span class="err">'+err+'</span>':'')+'</div>';
+}
+function radio(name,val,title,sub,checked){
+  return '<label class="opt-radio"><input type="radio" name="'+name+'" value="'+val+'"'+(checked?' checked':'')+'><span><b>'+title+'</b><small>'+sub+'</small></span></label>';
+}
+function pCheckout(){
+  var lines=cartLines();if(!lines.length)return emptyCart();
+  var d=draft();
+  return '<div class="page"><div class="wrap"><nav class="crumbs" aria-label="Навігація"><a href="#cart" data-nav="cart">Кошик</a><span>/</span><span>Оформлення</span></nav><h1 class="h2 mb">Оформлення замовлення</h1>'+
+    '<form id="fCheckout" class="cart-grid" novalidate><div>'+
+      '<section class="co-sec"><h2 class="h3">Контактні дані</h2><div class="row2">'+fld('c-name','Ім’я та прізвище','name',d.name,'autocomplete="name"')+fld('c-phone','Телефон','phone',d.phone,'type="tel" inputmode="tel" placeholder="+380" autocomplete="tel"')+'</div></section>'+
+      '<section class="co-sec"><h2 class="h3">Доставка</h2><div class="radios">'+Object.keys(DLV).map(function(k){return radio('dlv',k,DLV[k],DLV_NOTE[k],d.dlv===k);}).join('')+'</div>'+
+        '<div class="row2" id="addr"'+(d.dlv==='self'?' hidden':'')+'>'+fld('c-city','Місто','city',d.city,'autocomplete="address-level2"')+fld('c-branch',BR_LABEL[d.dlv]||'Відділення','branch',d.branch,'','branch-label')+'</div>'+
+        '<p class="note" id="self-note"'+(d.dlv==='self'?'':' hidden')+'>Адресу складу й час видачі надішлемо після підтвердження.</p></section>'+
+      '<section class="co-sec"><h2 class="h3">Оплата</h2><div class="radios">'+radio('pay','card','Карткою онлайн','Visa, Mastercard, Apple Pay, Google Pay',d.pay==='card')+radio('pay','cod','Накладений платіж','Оплата при отриманні, комісія перевізника',d.pay==='cod')+'</div></section>'+
+      '<section class="co-sec"><div class="field"><label for="c-com">Коментар до замовлення <span class="muted">(необов’язково)</span></label><textarea class="inp" id="c-com" name="comment" rows="3">'+esc(d.comment)+'</textarea></div>'+
+        (S.user?'':'<label class="check"><input type="checkbox" id="c-acc" name="account"'+(d.account?' checked':'')+'> Створити особистий кабінет за цим номером</label>')+'</section>'+
+    '</div><aside class="summary"><h2 class="h3">Ваше замовлення</h2><ul class="sum-lines">'+lines.map(function(l){return '<li><span>'+esc(l.p.name)+', '+esc(l.v.label)+' × '+l.qty+'</span><span class="num">'+money(l.sum)+'</span></li>';}).join('')+'</ul>'+
+      sumRows(lines)+'<button class="btn btn-block" type="submit">Підтвердити замовлення</button><p class="note">Натискаючи кнопку, ви погоджуєтесь з умовами <a href="#" data-act="soon">публічної оферти</a>.</p></aside></form></div></div>';
+}
+function validate(d){
+  var e={};
+  if(!d.name.trim())e.name='Вкажіть ім’я та прізвище';
+  if(digits(d.phone).length<10)e.phone='Вкажіть номер у форматі +380 XX XXX XX XX';
+  if(d.dlv!=='self'){
+    if(!d.city.trim())e.city='Вкажіть місто';
+    if(!d.branch.trim())e.branch=d.dlv==='np'?'Вкажіть номер відділення або поштомату':'Вкажіть адресу';
+  }
+  return e;
+}
+function placeOrder(d){
+  var lines=cartLines();
+  var o={no:S.nextNo++,date:nowStr(),name:d.name.trim(),phone:d.phone.trim(),dlv:d.dlv,city:d.dlv==='self'?'':d.city.trim(),branch:d.dlv==='self'?'':d.branch.trim(),pay:d.pay,paid:false,comment:d.comment.trim(),
+    lines:lines.map(function(l){return {vid:l.vid,name:l.p.name,label:l.v.label,price:l.v.price,qty:l.qty};}),total:cartTotal(),status:'new',mine:true};
+  S.orders.unshift(o);S.cart=[];
+  if(!S.user&&d.account)S.user={name:o.name,phone:o.phone,city:o.city,branch:o.branch};
+  save();UI.draft=null;UI.errors={};UI.lastNo=o.no;
+  return o;
+}
+function pPay(){
+  var o=S.orders.find(function(x){return x.no===UI.lastNo;});if(!o)return pHome();
+  return '<div class="page"><div class="wrap"><div class="pay"><p class="eyebrow">Оплата</p><h1 class="h2">Оплата замовлення №'+o.no+'</h1>'+
+    '<div class="pay-sum"><span class="muted">До сплати</span><span class="price">'+money(o.total)+'</span></div>'+
+    '<div class="pay-box"><b>Тут відкриється сторінка платіжного сервісу</b><p class="muted">У робочій версії покупець переходить на захищену сторінку LiqPay, WayForPay або monobank. Дані картки вводяться там, сайт їх не бачить і не зберігає. Після оплати сервіс повідомляє сайт, і замовлення позначається як оплачене.</p>'+
+    '<div class="pay-marks"><span>Visa</span><span>Mastercard</span><span>Apple Pay</span><span>Google Pay</span></div></div>'+
+    '<div class="cta-row"><button class="btn" data-act="paid">Оплатити '+money(o.total)+' (демо)</button><button class="btn btn-ghost" data-act="paylater">Оплатити пізніше</button></div></div></div></div>';
+}
+function pDone(){
+  var o=S.orders.find(function(x){return x.no===UI.lastNo;});if(!o)return pHome();
+  var payTxt=o.pay==='card'?(o.paid?'Оплату отримано.':'Замовлення очікує оплати, оплатити можна в особистому кабінеті.'):'Оплата при отриманні на Новій Пошті.';
+  var steps=o.dlv==='self'
+    ?['Менеджер підтверджує замовлення дзвінком або в месенджері.','Повідомляємо, коли замовлення готове до видачі.','Забираєте замовлення зі складу.']
+    :['Менеджер підтверджує замовлення дзвінком або в месенджері.','Відправляємо посилку протягом 1–2 робочих днів.','Номер накладної приходить у SMS і з’являється в особистому кабінеті.'];
+  return '<div class="page"><div class="wrap done-grid"><div class="done-main"><div class="done-icon">'+I.check+'</div>'+
+    '<h1 class="h2">Дякуємо! Замовлення №'+o.no+' прийнято</h1><p class="lead">'+payTxt+' Менеджер зв’яжеться з вами для підтвердження.</p>'+
+    '<div class="ocard">'+orderLines(o)+'<p class="muted">'+esc(dText(o))+'</p></div>'+
+    '<h2 class="h3">Що далі</h2><ol class="steps">'+steps.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ol>'+
+    '<div class="cta-row"><a class="btn" href="#catalog" data-nav="catalog">Продовжити покупки</a>'+(S.user?'<a class="btn btn-ghost" href="#cabinet" data-nav="cabinet">Мої замовлення</a>':'')+'</div></div>'+
+    '<aside>'+tgPreview(tgOrder(o),o.date.slice(-5),'Так замовлення приходить власнику в Telegram')+'</aside></div></div>';
+}
+
+/* wholesale page */
+function pOpt(){
+  return optBand(true)+
+    '<section class="sec"><div class="wrap"><div class="sec-head"><div><p class="eyebrow">Порядок</p><h2>Як працюємо з оптом</h2></div></div><ol class="steps steps-row">'+
+      '<li><b>Заявка</b><span>Ви залишаєте заявку на сайті або пишете нам у месенджер.</span></li>'+
+      '<li><b>Розрахунок</b><span>Менеджер рахує ціну з урахуванням обсягу й доставки.</span></li>'+
+      '<li><b>Оплата</b><span>Рахунок для ФОП чи ТОВ або оплата карткою.</span></li>'+
+      '<li><b>Відвантаження</b><span>Відвантажуємо біг-беги зі складу або відправляємо перевізником.</span></li>'+
+    '</ol></div></section>'+deliverySec();
+}
+
+/* cabinet */
+function orderCard(o){
+  var payState=o.pay==='card'?(o.paid?', оплачено':', не оплачено'):'';
+  return '<article class="ocard"><div class="ocard-head"><div><b>Замовлення №'+o.no+'</b> <span class="muted">· '+o.date+'</span>'+(o.demo?' <span class="tag">приклад</span>':'')+'</div>'+pill(STATUS_PILL[o.status],STATUS[o.status])+'</div>'+
+    orderLines(o)+'<div class="ocard-foot"><span class="muted">'+esc(dText(o))+' · '+PAY[o.pay]+payState+'</span><div class="cta-row">'+
+    (o.pay==='card'&&!o.paid?'<button class="btn btn-sm" data-act="payorder" data-no="'+o.no+'">Оплатити</button>':'')+
+    '<button class="btn btn-sm btn-ghost" data-act="repeat" data-no="'+o.no+'">Повторити замовлення</button></div></div></article>';
+}
+function loginBox(){
+  var s=UI.login;
+  if(s.step===1){
+    return '<form class="login" id="fLogin1" novalidate><p class="eyebrow">Особистий кабінет</p><h1 class="h2">Вхід за номером телефону</h1>'+
+      '<p class="muted">Без пароля: надішлемо код у SMS. У кабінеті історія замовлень, збережена адреса доставки й оптові умови.</p>'+
+      '<div class="field"><label for="lg-phone">Телефон</label><input class="inp" id="lg-phone" name="phone" type="tel" inputmode="tel" placeholder="+380" value="'+esc(s.phone)+'" autocomplete="tel"'+(s.err?' aria-invalid="true"':'')+'>'+(s.err?'<span class="err">'+s.err+'</span>':'')+'</div>'+
+      '<button class="btn btn-block" type="submit">Отримати код</button></form>';
+  }
+  return '<form class="login" id="fLogin2" novalidate><p class="eyebrow">Особистий кабінет</p><h1 class="h2">Введіть код</h1>'+
+    '<p class="muted">Код надіслано на '+esc(s.phone)+'. У макеті підійдуть будь-які 4 цифри.</p>'+
+    '<div class="field"><label for="lg-code">Код із SMS</label><input class="inp" id="lg-code" name="code" inputmode="numeric" maxlength="4" autocomplete="one-time-code"'+(s.err?' aria-invalid="true"':'')+'>'+(s.err?'<span class="err">'+s.err+'</span>':'')+'</div>'+
+    '<button class="btn btn-block" type="submit">Увійти</button><button class="btn btn-ghost btn-block" type="button" data-act="login-change">Змінити номер</button></form>';
+}
+function pCabinet(){
+  if(!S.user)return '<div class="page"><div class="wrap">'+loginBox()+'</div></div>';
+  var u=S.user,body='';
+  var mine=S.orders.filter(function(o){return o.mine;});
+  if(UI.cabTab==='orders'){
+    body=mine.length?mine.map(orderCard).join(''):'<div class="empty"><p>Замовлень ще немає.</p><a class="btn" href="#catalog" data-nav="catalog">До каталогу</a></div>';
+  }else if(UI.cabTab==='profile'){
+    body='<form class="form-card" id="fProfile"><h2 class="h3">Особисті дані</h2><p class="muted">Ці дані підставляються при оформленні замовлення.</p>'+
+      '<div class="row2"><div class="field"><label for="pf-name">Ім’я та прізвище</label><input class="inp" id="pf-name" name="name" value="'+esc(u.name)+'" autocomplete="name"></div>'+
+      '<div class="field"><label for="pf-phone">Телефон</label><input class="inp" id="pf-phone" value="'+esc(u.phone)+'" readonly></div></div>'+
+      '<div class="row2"><div class="field"><label for="pf-city">Місто</label><input class="inp" id="pf-city" name="city" value="'+esc(u.city)+'"></div>'+
+      '<div class="field"><label for="pf-branch">Відділення Нової Пошти</label><input class="inp" id="pf-branch" name="branch" value="'+esc(u.branch)+'"></div></div>'+
+      '<div><button class="btn" type="submit">Зберегти</button></div></form>';
+  }else{
+    body='<div class="form-card"><h2 class="h3">Оптові умови</h2><div class="sum-row"><span class="muted">Ваш статус</span>'+pill('muted','Роздрібний покупець')+'</div>'+
+      '<p>Купуєте від 1 тонни регулярно? Подайте заявку. Після підтвердження менеджером тут з’являться ваші оптові ціни, рахунки для ФОП чи ТОВ та історія відвантажень.</p>'+
+      '<div><a class="btn" href="#opt" data-nav="opt">Подати оптову заявку</a></div></div>';
+  }
+  var tabs=[['orders','Мої замовлення'],['profile','Особисті дані'],['opt','Оптові умови']];
+  return '<div class="page"><div class="wrap"><div class="cab-head"><p class="eyebrow">Особистий кабінет</p><h1 class="h2">'+(u.name?'Вітаємо, '+esc(u.name.split(' ')[0])+'!':'Вітаємо!')+'</h1><p class="muted num">'+esc(u.phone)+'</p></div>'+
+    '<div class="cab"><nav class="cab-nav" aria-label="Розділи кабінету">'+tabs.map(function(t){return '<button data-act="cabtab" data-k="'+t[0]+'" aria-current="'+(UI.cabTab===t[0])+'">'+t[1]+'</button>';}).join('')+
+    '<button class="cab-out" data-act="logout">Вийти</button></nav><div class="cab-body">'+body+'</div></div></div></div>';
+}
+
+/* admin */
+function pAdmin(){
+  var newCnt=S.orders.filter(function(o){return o.status==='new';}).length;
+  var tabs=[['orders','Замовлення',newCnt],['products','Товари й ціни',null],['leads','Оптові заявки',S.leads.length]];
+  var body='';
+  if(UI.admTab==='orders'){
+    body='<div class="tbl-wrap adm-orders"><table><thead><tr><th>№</th><th>Дата</th><th>Клієнт</th><th>Товари</th><th>Сума</th><th>Оплата</th><th>Доставка</th><th>Статус</th></tr></thead><tbody>'+
+      S.orders.map(function(o){
+        return '<tr><td class="num"><b>'+o.no+'</b>'+(o.demo?'<br><span class="tag">приклад</span>':'')+'</td><td class="num">'+o.date+'</td><td>'+esc(o.name)+'<br><span class="adm-small num">'+esc(o.phone)+'</span></td>'+
+          '<td class="adm-small">'+o.lines.map(function(l){return esc(l.name)+', '+esc(l.label)+' × '+l.qty;}).join('<br>')+'</td>'+
+          '<td class="num"><b>'+money(o.total)+'</b></td><td>'+PAY[o.pay]+'<br><span class="adm-small">'+(o.pay==='card'?(o.paid?'оплачено':'не оплачено'):'при отриманні')+'</span></td>'+
+          '<td class="adm-small">'+esc(dText(o))+'</td>'+
+          '<td><select class="inp inp-sm" data-status="'+o.no+'" aria-label="Статус замовлення '+o.no+'">'+Object.keys(STATUS).map(function(k){return '<option value="'+k+'"'+(o.status===k?' selected':'')+'>'+STATUS[k]+'</option>';}).join('')+'</select></td></tr>';
+      }).join('')+'</tbody></table></div>';
+  }else if(UI.admTab==='products'){
+    body='<div class="adm-bar"><p class="muted">Змінена ціна чи наявність одразу з’являється на сайті. Спробуйте змінити ціну й відкрити каталог.</p><button class="btn btn-sm" data-act="soon">+ Додати товар</button></div>'+
+      '<div class="tbl-wrap"><table><thead><tr><th>Товар</th><th>Фасування</th><th>Ціна, грн</th><th>Наявність</th></tr></thead><tbody>'+
+      S.products.map(function(p){
+        return p.variants.map(function(v,i){
+          return '<tr>'+(i===0?'<td rowspan="'+p.variants.length+'"><b>'+esc(p.name)+'</b><br><button class="chip" style="margin-top:8px" data-act="soon">+ фасування</button></td>':'')+
+            '<td>'+esc(v.label)+'</td><td><input class="inp inp-sm num" type="number" min="1" step="1" value="'+v.price+'" data-price="'+v.id+'" aria-label="Ціна: '+esc(p.name)+', '+esc(v.label)+'"></td>'+
+            '<td><select class="inp inp-sm" data-stock="'+v.id+'" aria-label="Наявність: '+esc(p.name)+', '+esc(v.label)+'">'+Object.keys(STOCK).map(function(k){return '<option value="'+k+'"'+(v.stock===k?' selected':'')+'>'+STOCK[k]+'</option>';}).join('')+'</select></td></tr>';
+        }).join('');
+      }).join('')+'</tbody></table></div>';
+  }else{
+    body=S.leads.length?'<div class="tbl-wrap"><table><thead><tr><th>Дата</th><th>Хто</th><th>Телефон</th><th>Обсяг</th><th>Регіон</th><th>Коментар</th></tr></thead><tbody>'+
+      S.leads.map(function(l){return '<tr><td class="num">'+esc(l.date)+(l.demo?'<br><span class="tag">приклад</span>':'')+'</td><td>'+esc(l.name)+'</td><td class="num">'+esc(l.phone)+'</td><td><b>'+esc(l.volume)+'</b></td><td>'+esc(l.region)+'</td><td class="adm-small">'+esc(l.comment)+'</td></tr>';}).join('')+
+      '</tbody></table></div>':'<div class="empty"><p>Оптових заявок ще немає.</p></div>';
+  }
+  return '<div class="page"><div class="wrap"><div class="adm-top"><div><p class="eyebrow">Бачить лише власник</p><h1 class="h2">Адмін-панель</h1></div><span class="tg-status">'+I.tg+'Telegram-сповіщення увімкнено</span></div>'+
+    '<p class="note">У робочій версії вхід за паролем. У макеті зміни зберігаються лише у вашому браузері.</p>'+
+    '<div class="tabbar" role="tablist">'+tabs.map(function(t){return '<button role="tab" data-act="admtab" data-k="'+t[0]+'" aria-current="'+(UI.admTab===t[0])+'">'+t[1]+(t[2]!==null?'<span class="cnt'+(t[2]?'':' cnt-0')+'">'+t[2]+'</span>':'')+'</button>';}).join('')+'</div>'+
+    body+'<div class="adm-reset"><span class="note">Повернути ціни, замовлення й кошик до початкового стану макета.</span><button class="btn btn-sm btn-ghost" data-act="reset">Скинути макет</button></div></div></div>';
+}
+
+/* routing + render */
+function page(){
+  switch(UI.page){
+    case 'catalog':return pCatalog();case 'product':return pProduct();case 'cart':return pCart();case 'checkout':return pCheckout();
+    case 'pay':return pPay();case 'done':return pDone();case 'cabinet':return pCabinet();case 'opt':return pOpt();case 'admin':return pAdmin();
+    default:return pHome();
+  }
+}
+var app=document.getElementById('app');
+function render(){app.innerHTML=demoBar()+header()+'<main id="main">'+page()+'</main>'+(UI.page==='admin'?'':footer());}
+function route(to){
+  to=to||'home';
+  if(to.indexOf('p-')===0){var id=to.slice(2);if(UI.pid!==id)UI.ppQty=1;UI.pid=id;UI.page=getP(id)?'product':'catalog';}
+  else UI.page=PAGES.indexOf(to)>=0?to:'home';
+  if(UI.page!=='checkout')UI.errors={};
+}
+function navigate(to,scroll){
+  UI.menu=false;route(to);render();
+  if(scroll){requestAnimationFrame(function(){var el=document.getElementById(scroll);if(el)el.scrollIntoView({block:'start'});});}
+  else window.scrollTo(0,0);
+  try{history.pushState(null,'','#'+(scroll||to));}catch(e){}
+}
+var tt;
+function toast(msg){var el=document.getElementById('toast');el.textContent=msg;el.hidden=false;clearTimeout(tt);tt=setTimeout(function(){el.hidden=true;},2600);}
+
+document.addEventListener('click',function(e){
+  var nav=e.target.closest('[data-nav]');
+  if(nav){e.preventDefault();navigate(nav.getAttribute('data-nav'),nav.getAttribute('data-scroll'));return;}
+  var a=e.target.closest('[data-act]');if(!a)return;
+  var act=a.getAttribute('data-act'),ds=a.dataset,f,o;
+  switch(act){
+    case 'menu':UI.menu=!UI.menu;render();break;
+    case 'sel':S.sel[ds.p]=ds.v;save();render();break;
+    case 'add':
+      f=findV(ds.v);if(!f||f.v.stock==='out')return;
+      addCart(f.v.id,ds.q==='pp'?UI.ppQty:1);render();toast('Додано в кошик: '+f.p.name+', '+f.v.label);break;
+    case 'pqty':UI.ppQty=Math.max(1,Math.min(99,UI.ppQty+Number(ds.d)));render();break;
+    case 'qty':var l=S.cart.find(function(x){return x.vid===ds.v;});if(l){l.qty=Math.max(1,Math.min(99,l.qty+Number(ds.d)));save();render();}break;
+    case 'rm':S.cart=S.cart.filter(function(x){return x.vid!==ds.v;});save();render();break;
+    case 'filter':UI.cat=ds.k;render();break;
+    case 'usetab':UI.useTab=ds.k;render();break;
+    case 'paid':o=S.orders.find(function(x){return x.no===UI.lastNo;});if(o){o.paid=true;save();}navigate('done');break;
+    case 'paylater':navigate('done');break;
+    case 'payorder':UI.lastNo=Number(ds.no);navigate('pay');break;
+    case 'repeat':
+      o=S.orders.find(function(x){return x.no===Number(ds.no);});if(!o)return;
+      var added=0;o.lines.forEach(function(ln){var fv=findV(ln.vid);if(fv&&fv.v.stock!=='out'){addCart(ln.vid,ln.qty);added++;}});
+      if(added){navigate('cart');toast('Товари із замовлення №'+o.no+' додано в кошик');}else toast('Цих товарів зараз немає в наявності');
+      break;
+    case 'login-change':UI.login={step:1,phone:UI.login.phone,err:''};render();break;
+    case 'logout':S.user=null;save();UI.cabTab='orders';UI.draft=null;render();toast('Ви вийшли з кабінету');break;
+    case 'cabtab':UI.cabTab=ds.k;render();break;
+    case 'admtab':UI.admTab=ds.k;render();break;
+    case 'lead-again':UI.leadSent=null;render();break;
+    case 'reset':S=clone(SEED);save();UI.draft=null;UI.leadSent=null;UI.lastNo=null;render();toast('Макет повернуто до початкових даних');break;
+    case 'soon':e.preventDefault();toast('З’явиться в робочій версії сайту');break;
+  }
+});
+document.addEventListener('input',function(e){
+  var t=e.target;
+  if(t.form&&t.form.id==='fCheckout'&&t.name){var d=draft();d[t.name]=t.type==='checkbox'?t.checked:t.value;}
+});
+document.addEventListener('change',function(e){
+  var t=e.target,f,o;
+  if(t.form&&t.form.id==='fCheckout'){
+    var d=draft();if(t.name)d[t.name]=t.type==='checkbox'?t.checked:t.value;
+    if(t.name==='dlv'){
+      document.getElementById('addr').hidden=t.value==='self';
+      document.getElementById('self-note').hidden=t.value!=='self';
+      var lab=document.getElementById('branch-label');if(lab)lab.textContent=BR_LABEL[t.value]||'';
+    }
+    return;
+  }
+  if(t.dataset.price){
+    f=findV(t.dataset.price);var n=Math.round(Number(t.value));
+    if(f&&n>0){f.v.price=n;save();toast('Ціну оновлено: '+f.p.name+', '+f.v.label+', '+money(n));}
+    else if(f){t.value=f.v.price;toast('Ціна має бути більшою за нуль');}
+    return;
+  }
+  if(t.dataset.stock){f=findV(t.dataset.stock);if(f){f.v.stock=t.value;save();toast(f.p.name+', '+f.v.label+': '+STOCK[t.value].toLowerCase());}return;}
+  if(t.dataset.status){o=S.orders.find(function(x){return x.no===Number(t.dataset.status);});if(o){o.status=t.value;save();render();toast('Замовлення №'+o.no+': '+STATUS[o.status].toLowerCase());}return;}
+});
+document.addEventListener('submit',function(e){
+  var f=e.target;e.preventDefault();
+  var fd={};new FormData(f).forEach(function(v,k){fd[k]=v;});
+  if(f.id==='fCheckout'){
+    var d=draft();
+    ['name','phone','dlv','city','branch','pay','comment'].forEach(function(k){if(fd[k]!==undefined)d[k]=fd[k];});
+    var acc=document.getElementById('c-acc');d.account=acc?acc.checked:false;
+    UI.errors=validate(d);
+    if(Object.keys(UI.errors).length){render();var first=document.querySelector('[aria-invalid="true"]');if(first)first.focus();return;}
+    var o=placeOrder(d);navigate(o.pay==='card'?'pay':'done');
+  }else if(f.id==='fLead'){
+    var name=(fd.name||'').trim(),phone=(fd.phone||'').trim(),err=document.getElementById('l-err');
+    if(!name||digits(phone).length<10){err.textContent='Вкажіть ім’я і телефон, щоб менеджер міг з вами зв’язатися.';err.hidden=false;return;}
+    var lead={date:nowStr(),name:name,phone:phone,volume:fd.volume,region:(fd.region||'').trim(),comment:(fd.comment||'').trim()};
+    S.leads.unshift(lead);save();UI.leadSent=lead;render();
+    var ob=document.getElementById('optblock');if(ob)ob.scrollIntoView({block:'start'});
+  }else if(f.id==='fLogin1'){
+    var ph=(fd.phone||'').trim();
+    if(digits(ph).length<10){UI.login={step:1,phone:ph,err:'Вкажіть номер у форматі +380 XX XXX XX XX'};render();return;}
+    UI.login={step:2,phone:ph,err:''};render();var c=document.getElementById('lg-code');if(c)c.focus();
+  }else if(f.id==='fLogin2'){
+    if(!/^\d{4}$/.test((fd.code||'').trim())){UI.login.err='Код має складатися з 4 цифр';render();return;}
+    S.user={name:'',phone:UI.login.phone,city:'',branch:''};save();UI.login={step:1,phone:'',err:''};UI.cabTab='orders';UI.draft=null;render();toast('Ви увійшли в кабінет');
+  }else if(f.id==='fProfile'){
+    S.user.name=(fd.name||'').trim();S.user.city=(fd.city||'').trim();S.user.branch=(fd.branch||'').trim();save();UI.draft=null;render();toast('Дані збережено');
+  }
+});
+window.addEventListener('popstate',function(){
+  var h=(location.hash||'').slice(1);
+  if(HOME_SECTIONS.indexOf(h)>=0){route('home');render();var el=document.getElementById(h);if(el)el.scrollIntoView({block:'start'});}
+  else{route(h);render();}
+});
+
+(function init(){
+  var h=(location.hash||'').slice(1);
+  if(HOME_SECTIONS.indexOf(h)>=0){route('home');render();requestAnimationFrame(function(){var el=document.getElementById(h);if(el)el.scrollIntoView({block:'start'});});}
+  else{route(h);render();}
+})();
+})();
+</script>
